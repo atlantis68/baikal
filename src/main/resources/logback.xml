@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<configuration>
+    <property name="logLevel" value="INFO"/>
+    <property name="outPattern" value="[%-5p] %d{yyyy-MM-dd HH:mm:ss.SSS} [%t] [%c] - %m%n" />
+    <property name="maxHistory" value="5" />
+    <!-- logback -->
+    <appender name="CONSOLE" class="ch.qos.logback.core.ConsoleAppender">
+        <encoder>
+            <pattern>${outPattern}</pattern>
+            <charset>UTF-8</charset>
+        </encoder>
+    </appender>
+    
+    <root level="${logLevel}">
+        <appender-ref ref="CONSOLE" />
+    </root>
+
+</configuration>
