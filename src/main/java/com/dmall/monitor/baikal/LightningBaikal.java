@@ -18,10 +18,11 @@ public class LightningBaikal
 	    	String key = properties.get("key").toString().trim();
 	    	String cookie = properties.get("cookie").toString().trim();
 	    	int threshold = Integer.parseInt(properties.get("threshold").toString().trim());
+	    	float rate = Float.parseFloat(properties.get("rate").toString().trim());
 	    	int interval = Integer.parseInt(properties.get("interval").toString().trim());
 			new MonitorConfig(properties.getProperty("dmc.projectCode"), properties.getProperty("dmc.appCode"), 
 					Boolean.parseBoolean(properties.getProperty("dmc.startupMonitor"))).monitorInit();
-	    	new BaikalWorker(key, cookie, threshold, interval);
+	    	new BaikalWorker(key, cookie, threshold, rate, interval);
 		} catch (IOException e) {
 			e.printStackTrace();
 			System.exit(-1);
