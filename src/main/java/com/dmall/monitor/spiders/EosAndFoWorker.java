@@ -28,6 +28,7 @@ public class EosAndFoWorker extends TimerTask {
 	
 	private SimpleDateFormat simpleDateFormat;
 	
+	//全局最大高度
 	private int golabBlockNum;
 	
 	public EosAndFoWorker(int eosToFoThreshold, int foToEosThreshold, int interval) {
@@ -53,6 +54,7 @@ public class EosAndFoWorker extends TimerTask {
 			Response response = HttpService.sendHttp(request);
 			if(response != null && response.isSuccessful()) {
 				JSONArray results = JSON.parseArray(response.body().string());
+				//本次获取获取到的最大高度
 				int curBlockNum = 0;
 				for(Object result : results) {
 					JSONObject content = JSON.parseObject("" + result);
@@ -78,6 +80,7 @@ public class EosAndFoWorker extends TimerTask {
 						}
 					}
 				}
+				logger.info("global height : {}, current height : {}", golabBlockNum, curBlockNum);
 				golabBlockNum = curBlockNum > golabBlockNum ? curBlockNum : golabBlockNum;
 			}
 			if(isAlert) {
