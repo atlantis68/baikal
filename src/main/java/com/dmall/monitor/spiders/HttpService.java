@@ -1,4 +1,4 @@
-package com.dmall.monitor.baikal;
+package com.dmall.monitor.spiders;
 
 import com.squareup.okhttp.OkHttpClient;
 import com.squareup.okhttp.Request;

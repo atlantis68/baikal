@@ -1,4 +1,4 @@
-package com.dmall.monitor.baikal;
+package com.dmall.monitor.spiders;
 
 import java.util.ArrayList;
 import java.util.List;
