@@ -52,7 +52,7 @@ then
  	
 	echo LOG CONFIGURATION : $logback_configurationFile
 	echo CLASSPATH :$CLASSPATH
-	$JAVA $JAVA_OPTS $JAVA_DEBUG_OPT $BASELINE_OPTS -classpath .:$CLASSPATH com.dmall.monitor.baikal.LightningSpiders 1>>$base/logs/web.log 2>&1 &
+	$JAVA $JAVA_OPTS $JAVA_DEBUG_OPT $BASELINE_OPTS -classpath .:$CLASSPATH com.dmall.monitor.spiders.LightningSpiders 1>>$base/logs/web.log 2>&1 &
 	echo $! > $base/bin/tomcat.pid
 	
 	echo "cd to $current_path for continue"

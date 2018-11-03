@@ -75,7 +75,8 @@ public class EosAndFoWorker extends TimerTask {
 									(from.toLowerCase().equals("fo") && to.toLowerCase().equals("eos") && number > foToEosThreshold)) {
 								Date date = simpleDateFormat.parse(content.getString("timestamp").replace("T", " "));
 								sb.append("账户").append(data.getString("owner")).append("在").append(simpleDateFormat.format(date.getTime() + 8 * 60 * 60 * 1000))
-									.append("将").append(number).append("个").append(from).append("兑换到").append(to).append("\n");					
+									.append("将").append(number).append("个").append(from).append("兑换到").append(to).append("\n");
+								isAlert = true;
 							}
 						}
 					}
