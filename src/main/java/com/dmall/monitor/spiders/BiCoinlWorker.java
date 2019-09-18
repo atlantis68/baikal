@@ -1,6 +1,8 @@
 package com.dmall.monitor.spiders;
 
+import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 import java.util.Random;
 
@@ -10,6 +12,8 @@ import org.slf4j.LoggerFactory;
 import com.alibaba.fastjson.JSON;
 import com.alibaba.fastjson.JSONArray;
 import com.alibaba.fastjson.JSONObject;
+import com.dmall.monitor.sdk.Monitor;
+import com.dmall.monitor.sdk.UserInfo;
 import com.google.common.collect.HashBasedTable;
 import com.google.common.collect.Table;
 import com.squareup.okhttp.Request;
@@ -140,16 +144,16 @@ public class BiCoinlWorker implements Runnable {
 					}
 				}
 //				System.out.println(sb);
-//				if(isAlert) {
-//					List<UserInfo> userInfos = new ArrayList<UserInfo>();
-//					UserInfo duheng = new UserInfo();
-//					duheng.setPhone("18980868096");
-//					userInfos.add(duheng);
-//					UserInfo chenzhen = new UserInfo();
-//					chenzhen.setPhone("13308239343");
-//					userInfos.add(chenzhen);
-//					Monitor.alarm("other", "lightning spider提醒" + sb.toString() + "请及时关注", userInfos);
-//				}
+				if(isAlert) {
+					List<UserInfo> userInfos = new ArrayList<UserInfo>();
+					UserInfo duheng = new UserInfo();
+					duheng.setPhone("18980868096");
+					userInfos.add(duheng);
+					UserInfo chenzhen = new UserInfo();
+					chenzhen.setPhone("13308239343");
+					userInfos.add(chenzhen);
+					Monitor.alarm("other", "lightning spider提醒" + sb.toString() + "请及时关注", userInfos);
+				}
 			} catch(Exception e) {
 				e.printStackTrace();
 			}
@@ -160,7 +164,7 @@ public class BiCoinlWorker implements Runnable {
 				} else {
 					randomInterval = interval - randomInterval;
 				}
-				System.out.println(randomInterval);
+//				System.out.println(randomInterval);
 				Thread.sleep(randomInterval * 1000);
 			} catch (InterruptedException e) {
 				// TODO Auto-generated catch block
