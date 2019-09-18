@@ -36,7 +36,7 @@ public class LightningSpiders
 //	    	new EosAndFoWorker(eosToFoThreshold, foToEosThreshold, afToFoThreshold, foToAfThreshold, druidDataSource, types, foInterval);
 	    	int bicoinInterval = Integer.parseInt(properties.get("bicoin.interval").toString().trim());
 	    	float bicoinRate = Float.parseFloat(properties.get("bicoin.rate").toString().trim());
-	    	new BiCoinlWorker(key, bicoinRate, bicoinInterval);
+	    	new Thread(new BiCoinlWorker(key, bicoinRate, bicoinInterval)).start();
 		} catch (IOException e) {
 			e.printStackTrace();
 			System.exit(-1);
