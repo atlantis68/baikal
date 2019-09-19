@@ -81,13 +81,13 @@ public class BiCoinlWorker implements Runnable {
 									} else {
 										String oldFutureLongAmount = user.getFutureLongAmount();
 										if(diff(oldFutureLongAmount, futureLongAmount)) {
-											all = initStringBuffer(all, userName);
-											all.append("多倍:").append(oldFutureLongAmount).append("->").append(futureLongAmount).append(",");
+											all = initStringBuffer(all, wordCensor(userName, 1));
+											all.append("Rise:").append(oldFutureLongAmount).append("->").append(futureLongAmount).append(",");
 										}
 										String oldFutureShortAmount = user.getFutureShortAmount();
 										if(diff(oldFutureShortAmount, futureShortAmount)) {
-											all = initStringBuffer(all, userName);
-											all.append("空倍:").append(oldFutureShortAmount).append("->").append(futureShortAmount).append(",");
+											all = initStringBuffer(all, wordCensor(userName, 1));
+											all.append("Drop:").append(oldFutureShortAmount).append("->").append(futureShortAmount).append(",");
 										}
 									}
 									user.setFutureLongAmount(futureLongAmount);
@@ -109,16 +109,16 @@ public class BiCoinlWorker implements Runnable {
 													String oldAmount = p.getAmount();
 													String oldAvgCost = p.getAvgCost();
 													if(diff(oldAvailQty, availQty)) {
-														pos = appendStringBuffer(pos, all != null ? null : userName, row + "|" + column);
-														pos.append("张数:").append(oldAvailQty).append("->").append(availQty).append(",");
+														pos = appendStringBuffer(pos, all != null ? null : wordCensor(userName, 1), wordCensor(row, 2) + "|" + formatKey(column));
+														pos.append("Sheet:").append(oldAvailQty).append("->").append(availQty).append(",");
 													}
 													if(diff(oldAmount, amount)) {
-														pos = appendStringBuffer(pos, all != null ? null : userName, row + "|" + column);
-														pos.append("个数:").append(oldAmount).append("->").append(amount).append(",");
+														pos = appendStringBuffer(pos, all != null ? null : wordCensor(userName, 1), wordCensor(row, 2) + "|" + formatKey(column));
+														pos.append("Number:").append(oldAmount).append("->").append(amount).append(",");
 													}
 													if(diff(oldAvgCost, avgCost)) {
-														pos = appendStringBuffer(pos, all != null ? null : userName, row + "|" + column);
-														pos.append("均价:").append(oldAvgCost).append("->").append(avgCost).append(",");
+														pos = appendStringBuffer(pos, all != null ? null : wordCensor(userName, 1), wordCensor(row, 2) + "|" + formatKey(column));
+														pos.append("Price:").append(oldAvgCost).append("->").append(avgCost).append(",");
 													}
 												}
 												p = new Position(availQty, amount, avgCost);
@@ -202,6 +202,29 @@ public class BiCoinlWorker implements Runnable {
 		sb = initStringBuffer(sb, userName);
 		sb.append("[").append(content).append("],");
 		return sb;
+	}
+	
+	private String wordCensor(String content, int offset) {
+		StringBuffer sb = new StringBuffer();
+		for(int i = 0; i < content.length(); i++) {
+			if(i < offset) {
+				sb.append(content.substring(i, i + 1));
+			} else {
+				sb.append("*");
+			}
+		}
+		return sb.toString();
+	}
+	
+	private String formatKey(String content) {
+		String coin = content.substring(0, 3);
+		coin = wordCensor(coin, 2);
+		String evnet = content.substring(3);
+		evnet = evnet.replace("当周", " curWeek").replace("次周", " nextWeek")
+				.replace("季度", " curQuarter").replace("永续", " forEver")
+				.replace("多", " Rise").replace("空", " Drop");
+		
+		return coin + evnet;
 	}
 }
 
