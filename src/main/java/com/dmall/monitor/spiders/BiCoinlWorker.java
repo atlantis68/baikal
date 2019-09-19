@@ -61,7 +61,7 @@ public class BiCoinlWorker implements Runnable {
 				Response response = HttpService.sendHttp(request);
 				if(response != null && response.isSuccessful()) {
 					JSONObject result = JSON.parseObject(response.body().string());
-					logger.info("{}", result);
+//					logger.info("{}", result);
 					String datas = result.getString("data");
 					if(datas != null) {
 						JSONArray userInfos = JSON.parseArray(datas);
