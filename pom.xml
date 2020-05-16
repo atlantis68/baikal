@@ -85,36 +85,17 @@
 	
 		<plugins>
 			<plugin>
-				<groupId>org.apache.maven.plugins</groupId>
-				<artifactId>maven-compiler-plugin</artifactId>
-				<version>3.5.1</version>
-				<configuration>
-					<source>${maven.compiler.source}</source>
-					<target>${maven.compiler.target}</target>
-					<encoding>${file_encoding}</encoding>
-				</configuration>
-			</plugin>
-			<plugin>
-				<groupId>org.apache.maven.plugins</groupId>
-				<artifactId>maven-assembly-plugin</artifactId>
-				<version>2.6</version>
-				<executions>
-					<execution>
-						<id>assemble</id>
-						<goals>
-							<goal>single</goal>
-						</goals>
-						<phase>package</phase>
-					</execution>
-				</executions>
-				<configuration>
-					<!-- maven assembly插件需要一个描述文件 来告诉插件包的结构以及打包所需的文件来自哪里 -->
-					<descriptors>
-						<descriptor>${basedir}/src/main/assembly/spiders.xml</descriptor>
-					</descriptors>
-					<finalName>spiders</finalName>
-					<outputDirectory>${project.build.directory}</outputDirectory>
-				</configuration>
+			    <artifactId>maven-assembly-plugin</artifactId>
+			    <configuration>
+			        <descriptorRefs>
+			            <descriptorRef>jar-with-dependencies</descriptorRef>
+			        </descriptorRefs>
+					<archive>
+                        <manifest>
+                            <mainClass>com.dmall.monitor.spiders.LightningSpiders</mainClass>
+                        </manifest>
+                    </archive>	        
+			    </configuration>
 			</plugin>
 		</plugins>
 
